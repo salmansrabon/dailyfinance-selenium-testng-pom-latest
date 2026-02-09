@@ -14,8 +14,26 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.40.0")
     // Source: https://mvnrepository.com/artifact/org.testng/testng
     testImplementation("org.testng:testng:7.12.0")
+    // Source: https://mvnrepository.com/artifact/com.github.javafaker/javafaker
+    implementation("com.github.javafaker:javafaker:1.0.2")
+    // Source: https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
 }
 
-//test {
-//    useJUnitPlatform()
-//}
+test {
+    useTestNG(){
+        if(project.hasProperty("email") && project.hasProperty("password")){
+            systemProperties.put("email",project.property("email"))
+            systemProperties.put("password",project.property("password"))
+
+            print(project.property("email"))
+            print(project.property("password"))
+        }
+        if(project.hasProperty("suite")){
+            systemProperties.put("suite",project.property("suite"))
+        }
+        suites "./src/test/resources/"+project.property("suite")
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<suite name="Daily finance automation">
+    <test name="User Registration">
+        <classes>
+            <class name="tests.SignUpTestRunner"></class>
+        </classes>
+    </test>
+    <test name="User Login">
+        <classes>
+            <class name="tests.LoginTestRunner"></class>
+        </classes>
+    </test>
+    <test name="Admin Login">
+        <classes>
+            <class name="tests.AdminUserTestRunner"></class>
+        </classes>
+    </test>
+</suite>
