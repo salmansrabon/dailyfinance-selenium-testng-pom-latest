@@ -34,6 +34,6 @@ test {
         if(project.hasProperty("suite")){
             systemProperties.put("suite",project.property("suite"))
         }
-        suites "./src/test/resources/"+project.property("suite")
+        //suites "./src/test/resources/"+project.property("suite")
     }
 }

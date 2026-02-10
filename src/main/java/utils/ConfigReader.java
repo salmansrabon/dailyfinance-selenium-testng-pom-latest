@@ -1,22 +1,32 @@
 package utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
-    static Properties prop;
-    public ConfigReader() throws IOException {
-//        FileInputStream fs=new FileInputStream("./src/main/resources/config.properties");
-        prop=new Properties();
-        InputStream fs = ConfigReader.class
+    private static final ConfigReader instance = new ConfigReader();
+    private final Properties prop;
+
+    private ConfigReader() {
+        prop = new Properties();
+        try (InputStream fs = ConfigReader.class
                 .getClassLoader()
-                .getResourceAsStream("config.properties");
-        prop.load(fs);
+                .getResourceAsStream("config.properties")) {
+            if (fs == null) {
+                throw new RuntimeException("config.properties file not found in classpath");
+            }
+            prop.load(fs);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load config.properties", e);
+        }
     }
-    public static String get(String key) {
+
+    public static ConfigReader getInstance() {
+        return instance;
+    }
+
+    public String get(String key) {
         return prop.getProperty(key);
     }
 }

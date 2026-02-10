@@ -5,14 +5,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import utils.ConfigReader;
 
-import java.io.IOException;
-import java.sql.Driver;
 import java.time.Duration;
 
 public class DriverFactory {
 
     private static WebDriver driver;
-    public static WebDriver initDriver(String browser) throws IOException {
+
+    public static WebDriver initDriver() {
+        String browser = ConfigReader.getInstance().get("browser");
         if (browser == null) {
             browser = "chrome";
         }
@@ -32,8 +32,12 @@ public class DriverFactory {
         driver.manage().window().maximize();
         return driver;
     }
+
     // Quit driver
     public static void quitDriver() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 }
