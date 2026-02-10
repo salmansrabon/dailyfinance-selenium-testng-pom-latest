@@ -12,8 +12,8 @@ public class BaseTest {
 
     @BeforeTest(groups = "smoke")
     public void setup() {
-        driver = DriverFactory.initDriver();
-        driver.get(ConfigReader.getInstance().get("baseUrl"));
+        driver = DriverFactory.initDriver(); //Factory Design
+        driver.get(ConfigReader.getInstance().get("baseUrl")); //singleton
     }
 
     @AfterTest(groups = "smoke")
